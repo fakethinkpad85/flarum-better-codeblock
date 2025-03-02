@@ -7,12 +7,6 @@ A Flarum extension that adds a dedicated button for inserting code blocks with t
 ## Current Status
 
 This extension is currently experiencing initialization errors:
-```
-index.js:19 Uncaught TypeError: Cannot read properties of undefined (reading 'initializers')
-    at index.js:19:23
-```
-
-We're actively working on resolving these issues.
 
 ## Features
 
