@@ -1,6 +1,18 @@
 # Flarum Better Code Block
 
+> **⚠️ WORK IN PROGRESS**: This extension is currently under development and not fully functional. There are known issues with initialization that are being addressed.
+
 A Flarum extension that adds a dedicated button for inserting code blocks with triple backticks in the editor.
+
+## Current Status
+
+This extension is currently experiencing initialization errors:
+```
+index.js:19 Uncaught TypeError: Cannot read properties of undefined (reading 'initializers')
+    at index.js:19:23
+```
+
+We're actively working on resolving these issues.
 
 ## Features
 
