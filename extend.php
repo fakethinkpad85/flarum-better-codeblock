@@ -1,16 +1,20 @@
 <?php
 
-namespace fakethinkpad85\BetterCodeblock;
+/*
+ * This file is part of fakethinkpad85/flarum-better-codeblock.
+ *
+ * Copyright (c) 2023 fakethinkpad85.
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
 
 use Flarum\Extend;
-use Flarum\Frontend\Document;
-
-$extensionDir = __DIR__;
 
 return [
     (new Extend\Frontend('forum'))
-        ->js($extensionDir . '/assets/forum.js'),
+        ->js(__DIR__.'/assets/forum.js'),
 
     (new Extend\Frontend('admin'))
-        ->js($extensionDir . '/assets/admin.js'),
+        ->js(__DIR__.'/assets/admin.js'),
 ]; 

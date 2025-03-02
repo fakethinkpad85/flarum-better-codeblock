@@ -1,44 +1,41 @@
-import app from 'flarum/forum/app';
-import { extend as extendFn } from 'flarum/common/extend';
-import TextEditor from 'flarum/forum/components/TextEditor';
+import app from 'flarum/app';
+import { extend } from 'flarum/extend';
+import TextEditor from 'flarum/components/TextEditor';
+import TextEditorButton from 'flarum/components/TextEditorButton';
 
-// Export the extend property that Flarum looks for
-export const extend = [];
+// Export a function that adds the code block button
+export default function addCodeBlockButton() {
+  // Log a message to verify that the file has been updated
+  // console.log('Better Code Block extension loaded - ' + new Date().toISOString());
 
-// Initialize the extension
-app.initializers.add('fakethinkpad85-better-codeblock', () => {
-  extendFn(TextEditor.prototype, 'toolbarItems', function(items) {
-    // Add a new button for code blocks (triple backticks)
-    items.add('codeblock', {
-      title: 'Code Block (Triple Backticks)',
-      icon: 'fas fa-code-branch',
-      onclick: () => {
-        // Get the composer instance
-        const composer = this.attrs.composer;
-        
-        // Get the editor instance
-        const editor = composer.editor;
-        
-        // Get the current selection
-        const selectionRange = editor.getSelectionRange();
-        
-        // Get the current content
-        const content = editor.value();
-        
-        // Insert the code block
-        const newContent = content.substring(0, selectionRange[0]) + 
-                        '```\n' + content.substring(selectionRange[0], selectionRange[1]) + '\n```' + 
-                        content.substring(selectionRange[1]);
-        
-        // Set the new content
-        editor.setValue(newContent);
-        
-        // Move the cursor inside the code block
-        editor.moveCursorTo(selectionRange[0] + 4);
-        
-        // Update the preview
-        this.attrs.preview();
-      }
-    });
+  extend(TextEditor.prototype, 'toolbarItems', function(items) {
+    items.add('codeblock', (
+      <TextEditorButton 
+        onclick={() => {
+          // Get the editor instance
+          const editor = this.attrs.composer.editor;
+          
+          // Get the current selection
+          const selectionRange = editor.getSelectionRange();
+          
+          // If there's selected text, wrap it in code blocks
+          if (selectionRange[0] !== selectionRange[1]) {
+            const selectedText = editor.value().substring(selectionRange[0], selectionRange[1]);
+            editor.replaceRange(selectionRange[0], selectionRange[1], '```\n' + selectedText + '\n```');
+            editor.moveCursorTo(selectionRange[0] + 4); // Move cursor after the opening ```
+          } else {
+            // Otherwise, just insert empty code blocks
+            editor.insertAt(selectionRange[0], '```\n\n```');
+            editor.moveCursorTo(selectionRange[0] + 4); // Move cursor after the opening ```
+          }
+          
+          // Update the preview
+          this.attrs.preview();
+        }} 
+        icon="fas fa-code"
+      >
+        Insert Code Block (Triple Backticks)
+      </TextEditorButton>
+    ));
   });
-});
+}

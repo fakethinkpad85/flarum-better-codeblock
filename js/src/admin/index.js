@@ -1,9 +1,6 @@
-import app from 'flarum/admin/app';
+import app from 'flarum/app';
 
-// Export the extend property that Flarum looks for
-export const extend = [];
-
-// Initialize the extension
 app.initializers.add('fakethinkpad85-better-codeblock', () => {
-  // No admin functionality needed at this time
+  // No admin functionality needed
+  // console.log('Better Code Block extension admin initialized');
 }); 
